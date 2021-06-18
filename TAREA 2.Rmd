@@ -1,0 +1,180 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+FUNCION EN R
+```{r}
+"ESTRUCTURA DE UNA FUNCION"
+nombre_de_funcion <- function(par1, par2, ...) {
+  cuerpo
+  cuerpo
+  cuerpo
+  cuerpo
+  return(resultado)
+}
+
+```
+
+EJEMPLOS DE FUNCION
+
+```{r}
+"EJEMPLOS DE FUNCION"
+suma <- function(x,y){
+     # suma de los elementos "x" e "y”
+     x + y
+ }
+suma(x=2,y=3)
+
+
+medio <- function(a, b) {
+  medio <- (a + b) / 2
+  cat("El punto medio de los valores", a, "y", b,
+      "ingresados es", medio)
+}
+
+medio(a=-3, b=-1)  # Probando la función
+
+
+potencia <- function(x,y) {
+     # función que calcula x elevado a y
+     result <- x^y
+     paste(x,"elevado a la potencia de", y, "es", result)
+}
+potencia(2,3)
+
+```
+
+ARGUMENTOS DE UNA FUNCION
+Las funciones poseen 3 partes:
+
+El cuerpo (body)
+Los argumentos (formals)
+El ambiente (environment)
+```{r}
+f <- function(x, y) { x + y }
+
+body(f)
+{
+ x + y
+}
+
+formals(f)
+
+environment(f)
+<environment: R_GlobalEnv>
+
+  
+area_rectangulo <- function(lado1, lado2) 
+{
+  area <- lado1 * lado2
+  print(paste("el área es ", area))
+}
+
+area_rectangulo(2, 3)
+"el área es  6"
+
+formals(area_rectangulo)
+
+plot(cars)
+```
+
+ARGUMENTO POR VALOR
+DEBEMOS INDICAR EL NOMBRE DE ESTE AL LLAMAR, CUANDO LA FUNCION TIENE UN GRAN NUMERO DE ARGUMENTOS Y CUANDO ASIGNAMOS VALORES A LOS ARGUMENTOS SE SUELE UTILIZAR EL OPERADOR = EN VEZ DEL <-  SOLO ES UNA CUESTIONDE ESTILO
+```{r}
+sumar_pares <- function(...)
+{
+  valores <- c(...)
+  if(!is.numeric(valores)) return('NaN')
+ 
+  contador <- 0
+  for(n in valores){
+    if(n%%2 == 0){
+      contador <- contador + n
+    }
+  }
+contador
+}
+
+sumar_pares(1:10)
+
+```
+
+
+
+FAMILIA APPLY
+Es usada para aplicar una funcion a cada elemento de una estructura de datos, es usada para aplicar funciones en matrices, data frame, arrays y listas.
+con esta familia podemos automatizar tareas complejas
+```{r}
+```
+
+LAPPLY
+Para aplicar funciones a todos los elementos de una lista y siempre devolvera una lista como resultado
+```{r}
+"La estructura de esta funcion es:"
+#lapply(X, FUN)
+"x es una lista o un objeto coercionable a una lista"
+"FUN es la funcion a aplicar"
+
+trees[1:5, ]
+lapply(X = trees, FUN = mean)
+
+
+
+matriz <- matrix(1:9, ncol = 3)
+matriz
+lapply(matriz, quantile, probs = .8)
+
+
+```
+
+
+SAPPLY
+Es una funcion vectorizada, permite iterar sobre una lista o vector sin la necesidad de usar el bucle for, por ser lento en R
+```{r}
+"Sintaxis de la funcion SAPPLY"
+sapply(X,   # Vector o lista
+       FUN, # Función a ser aplicada
+       ..., # Argumentos adicionales para ser pasados a FUN
+       simplify = TRUE,  # Si FALSE devuelve una lista. Si "array" devuelve un array si es posible
+       USE.NAMES = TRUE) # Si TRUE y si X es un vector de caracteres, usa los nombres de X
+
+
+"Ejemplo de utilizar la funcion SAPPLY"
+sapply(1:4, sqrt)
+sapply(1:4, function(i) sqrt(i)) 
+mi_fun <- function(i) {
+    sqrt(i)
+}
+sapply(1:4, mi_fun) 
+
+
+"ejemplo 2 iterar un vector"
+out <- numeric(10)
+for (i in 1:10) {
+    out[i] <- i ^ 2
+}
+out
+
+"usando SAPPLY"
+sapply(1:10, function(i) i ^ 2)
+
+
+```
+
+VAPPLY
+Devuelve un vector con la longitud que tiene cada una de las listas introducidas como parámetro. 
+```{r}
+x <- list(A = 1, B = 1:3, C = 1:7)
+x
+
+vapply(x, FUN = length, FUN.VALUE = 0L)
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
