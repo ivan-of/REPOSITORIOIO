@@ -1,0 +1,142 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Cree un vector por cada estudiante.
+student_1 = {50.4,62.3,92.1,77.6,TRUE}
+student_2 = {41.7,87.9,75.3,72.4,TRUE}
+student_3 = {30.3,67.8,69.3,71.2,TRUE}
+student_4 = {65.4,85.1,92.3,96.8,TRUE}
+student_5 = {70.4,88.2,95.2,90.7,TRUE}
+
+```{r}
+student_1 <- c(50.4,62.3,92.1,77.6,TRUE)
+student_2 <- c(41.7,87.9,75.3,72.4,TRUE)
+student_3 <- c(30.3,67.8,69.3,71.2,TRUE)
+student_4 <- c(65.4,85.1,92.3,96.8,TRUE)
+student_5 <- c(70.4,88.2,95.2,90.7,TRUE)
+```
+
+1.2  students_vector
+
+```{r}
+students_vector <- c(student_1,student_2,student_3,student_4,student_5)
+
+```
+
+1.3 students_matrix
+```{r}
+students_matrix <- matrix(students_vector, nrow = 5, byrow = TRUE)
+views
+
+for (row in 1:nrow(views)) {
+  for (col in 1:ncol(views)) {
+    print(paste("on row",row, "and column", col, "contanins", views[row,col]))
+  }
+  
+}
+```
+
+2 NOMBRADO DE UNA MATRIZ
+2.1 Cree los vectores name_students y name_courses_legal_age
+
+```{r}
+
+name_students <- c("Lily Brown","Davis Moore","Susan Taylor","Myke Jones","Tom Hill")
+
+name_courses_legal_age <- c("TIC","Accounting","Psychology","Ethics","Legar_age")
+
+
+```
+
+2.2
+
+```{r}
+
+views <- matrix(c(students_vector,name_students,name_courses_legal_age), nrow = 2, byrow = TRUE)
+views
+
+for (row in 1:nrow(views)) {
+  for (col in 1:ncol(views)) {
+    print(paste(name_courses_legal_age,students_vector,col, "name_courses", views[row,col]))
+  }
+  
+}
+
+```
+
+rowSums, cbins
+3.1
+```{r}
+total_grade_student <- rowSums(students_matrix[,1:4])
+total_grade_student
+
+```
+3.2
+cbind nueva matriz result_student
+```{r}
+result_students <- cbind(students_matrix,total_grade_student)
+result_students
+
+```
+4.1
+Seleccionanado elementos de una matriz
+```{r}
+result_students <- cbind(students_matrix,total_grade_student)
+selected_elements <- result_students[c(1,3,5),c(2,4)]
+selected_elements
+```
+
+Data frames
+5.1
+```{r}
+
+students_grades_df <- result_students
+students_grades_df
+```
+
+5.2
+```{r}
+
+subset(students_grades_df, subset = Accounting > 80 & Legal_age. == TRUE)
+
+```
+
+Funciones, condiciones y bucles
+6.1
+```{r}
+students_projection <- matrix(c(result_students),nrow = 4,byrow = TRUE)
+students_projection
+
+for (row in 1:nrow(students_projection)) {
+  for (col in 1:ncol(students_projection)) {
+    print(paste("on row",row, "and column", col, "contanins", students_projection[row,col]))
+  }
+  
+}
+
+
+```
+6.2
+
+```{r}
+students_projection <- matrix(c(result_students),nrow = 4,byrow = TRUE)
+students_projection
+
+for (l in students_projection){
+  print(l)
+}
+
+for (i in 1:length(students_projection)){
+  print(students_projection[i])
+  
+}
+```
+6.3
+
+```{r}
+
+
+```
+
