@@ -1,0 +1,88 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Introduction to the Tidyverse
+```{r}
+library(gapminder)
+library(dplyr)
+
+gapminder
+```
+
+Filtering
+```{r}
+gapminder %>%
+  filter(year==1957)
+
+
+```
+```{r}
+gapminder %>%
+  arrange(lifeExp)
+
+gapminder %>%
+  arrange(desc(lifeExp))
+
+```
+Filterring and arra
+```{r}
+gapminder %>%
+  filter(year==1957) %>%
+  arrange(desc(pop))
+
+
+```
+
+the verb mutate
+```{r}
+
+gapminder %>%
+  mutate(lifeExp = 12 * lifeExp)
+
+gapminder %>%
+  mutate(lifeExpMonths = 12 * lifeExp)
+
+
+```
+
+Combining filter, mutate and arrange
+```{r}
+
+gapminder %>%
+  filter(year==2007) %>%
+  mutate(lifeExpMonths =12 * lifeExp) %>%
+  arrange(desc(lifeExpMonths))
+```
+
+```{r}
+library(ggplot2)
+
+gapminder_1952 <- gapminder %>%
+  filter(year==1952)
+
+gapminder_1952
+
+
+ggplot(gapminder_1952, aes(x=pop, y=gdpPercap)) +
+  geom_point()
+```
+
+
+Log Scaling
+```{r}
+ggplot(gapminder_1952, aes(x=pop, y=gdpPercap)) +
+  geom_point() +
+  scale_x_long() +
+  scale_y_long()
+```
+
+
+color
+```{r}
+ggplot(gapminder_1952, aes(x=pop, y=lifeExp, color=continent)) +
+  geom_point() +
+  scale_x_log10()
+```
+
