@@ -1,0 +1,88 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Leer archivos CSV desde R
+```{r}
+# se utilizan la funciones  read.csv y read.csv2 sirve para obtener detalle adicionales
+#Sintaxis
+# manipular data frame sin repetir lo mismo con pipes en dplyr 
+#combinar group_by() y para resumenes de dataset usat summarize()
+
+library(tidyverse)
+library(dplyr)
+library(gapminder)
+
+```
+
+1
+Funcion select() de la paqueteria dplyr
+```{r}
+primary_results <- read_csv('primary_results.csv')
+primary_results
+
+
+primary_results_selected <- primary_results %>%
+  select(state,Florida)
+
+
+```
+2.1
+filtrar los votos del estado de florida
+```{r}
+gapminder %in%
+  group_by(candidate) %in%
+  summarize(medianLifeExp = median(candidate)
+
+gapminder %>%
+  filter(primary_results, candidate == "Hillari Clinton" & "Donal Trump")
+
+
+```
+
+2.2
+Democrata y el condado Shelby
+```{r}
+gapminder %in%
+  group_by(party & county) %in%
+  summarize(medianLifeExp = party(Democrat), county(Shelby))
+
+gapminder %>%
+  filter(primary_results, candidate == "Hillari Clinton" & "Donal Trump")
+
+
+```
+2.3
+alabama y que se > 15000
+
+```{r}
+gapminder %>%
+  group_by(15000) %>%
+  summarize(medianLifeExp =median(Alabama), max(gdpPercap))
+```
+
+
+
+3.1
+Utilice la funcion select y arrange
+Texas y Denton
+```{r}
+primary_results_selected <- primary_results %in%
+  select(party,candidate,votes)
+
+```
+
+4.1
+```{r}
+
+primary_results %>%
+  select(state, vote)%>%
+  mutate(proportion_vote = vote/vote_count)%>%
+  mutate(proportion_vote = vote/fraction_votes)%>%
+  filter(state,vote) %in%
+  arrange(desc(vote_count))
+
+
+```
+
