@@ -26,4 +26,53 @@ counties %>%
   select(state, county, population, ends_with("work"))
 
 ```
+```{r}
+counties %>%
+  rename(state) %>%
+  rename(num_counties = n)
 
+counties %>%
+  select(state, county, poverty_rate = poverty)
+
+
+
+```
+Using transmute
+```{r}
+counties %>%
+  transmute(state, county, population, density=population/land_area) %>%
+  filter (population > 1000000) %>%
+  arrange(density)
+
+```
+
+
+```{r}
+counties %>%
+  rename(unemployment_rate = unemployment)
+
+counties %>%
+  select(state, county, contains("poverty"))
+
+
+
+```
+
+```{r}
+counties %>%
+  mutate(fraction_women = women/population)
+
+counties %>%
+  transmute(state, county, employment_rate = employed / population)
+```
+Joining data with dplyr
+```{r}
+sets
+themes
+```
+
+```{r}
+sets %>%
+  inner_join(themes, by=c("theme_id" = "id"))
+
+```
