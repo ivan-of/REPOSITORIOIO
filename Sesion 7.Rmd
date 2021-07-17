@@ -1,0 +1,29 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+sets <- read_csv('sets.csv')
+themes <- read_csv('themes.csv')
+parts <- read_csv('parts.csv')
+part_categories <- read_csv('part_categories.csv')
+
+```
+
+
+```{r}
+
+counties <- read_csv('counties.csv')
+counties
+
+counties %>%
+  select(state, county, population, professional:production)
+
+counties %>%
+  select(state, county, population, ends_with("work"))
+
+```
+
