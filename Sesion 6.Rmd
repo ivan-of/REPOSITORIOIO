@@ -6,6 +6,9 @@ output: html_notebook
 
 ```{r}
 library(tidyverse)
+library(dplyr)
+counties <- read_csv('counties.csv')
+counties
 
 gapminder %>%
   summarize(medianLifeExp = median(lifeExp))
@@ -18,8 +21,6 @@ gapminder %>%
   filter(year == 1957) %>%
   summarize(medianLifeExp = median(lifeExp),max(gdpPercap))
 
-#counties <- read_csv('counties.scv')
-#counties
 
 
 ```
@@ -36,7 +37,7 @@ gapminder %>%
 gapminder %>%
   filter(year == 1957) %>%
   group_by(continent) %>%
-  summarize(medianLifeExp =median(lifeExp), max(gdpPercap))
+  summarize(medianLifeExp = median(lifeExp), max(gdpPercap))
 
 
 ```
@@ -148,14 +149,14 @@ ggplot(gapminder_1952, aes(x=continent, y=gdpPercap)) +
 
 ```{r}
 
-dplyr::select(state,county, 
 
-counties <- read_csv('counties.scv')
-
+counties <- read_csv('counties.csv')
+counties
+dplyr::select(state,county) 
 
 
 ```
-
+The count_verb
 ```{r}
 
 counties %>%
@@ -163,6 +164,89 @@ counties %>%
   mutate(proportion_men = men/population)%>%
   filter(population > 10000) %>%
   arrange(desc(proportion_men))
+
+```
+The count_verb
+```{r}
+counties_selected <- counties %>%
+  select(county,region, state, population, citizens)
+
+counties_selected %>%
+  count (region, sort=TRUE)  #agregando sort lo ordena de manera descendente.
+
+counties_selected %>%
+  
+  count(state, wt = citizens)%>%  
+  arrange(desc(n))
+
+counties_selected <- counties %>%
+  select(county,region, state, population, citizens,walk)
+
+test <- counties_selected %>%
+  mutate(population_walk = population*walk/100 ) %>%
+  count(state, wt=population_walk, sort=TRUE)
+  
+test %>%
+```
+
+
+Summarizing
+```{r}
+counties_selected <- counties %>%
+  select(county,region, population, income, unemployment)
+
+counties_selected %>%
+  summarize(min_population=min(population), max_unemployment=max(unemployment), average_income=mean(income))
+
+counties_selected <- counties %>%
+  select(state,county, population, land_area)
+
+counties_selected %>%
+  group_by(state) %>%
+  summarize(total_area=sum(land_area), total_population=sum(population))
+
+counties_selected <- counties %>%
+  select(region, state, county, population)
+
+counties_selected %>%
+  group_by(region, state)%>%
+  summarize(total_pop=sum(population)) %>%
+  summarize(average_pop=mean(total_pop), median_pop=median(total_pop))
+select(state, number=n)
+
+
+```
+The top_n verb
+```{r}
+counties_selected <- counties %>%
+  select(region, state, county, metro, population, walk)
+
+counties_selected %>%
+  group_by(region) %>%
+  top_n(2, walk)
+
+counties_selected <- counties %>%
+  select(region, state, county, population, income)
+
+counties_selected %>%
+  group_by(region, state) %>%
+  summarize(average_income = mean(income))%>%
+  top_n(1, average_income)
+
+
+```
+
+```{r}
+
+counties_selected <- counties %>%
+  select(state, metro, population)
+
+counties_selected %>%
+  group_by(state, metro) %>%
+  summarize(total_pop=sum(population)) %>%
+  top_n(1, total_pop) %>%
+  ungroup() %>%
+  count(metro, wt=total_pop)
 
 
 ```
