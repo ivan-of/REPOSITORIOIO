@@ -1,0 +1,134 @@
+---
+title: "R Notebook"
+output: html_notebook
+
+```{r}
+library(tidyverse)
+library(dplyr)
+
+diamonds <- read_csv('diamonds.csv')
+
+diamonds
+
+```
+
+1.1 carat vr price
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) +
+  geom_point()
+
+```
+
+1.2 colo vr clarity
+```{r}
+ggplot(diamonds, aes(x=color, y=clarity)) +
+  geom_point()
+
+```
+
+
+2.1 Histograma_price
+```{r}
+
+diamonds_price
+
+ggplot(diamonds_price, aes(x=price)) +
+  geom_histogram(bins=40)
+
+```
+
+2.2 escala logaritmita base 10
+```{r}
+
+ggplot(diamonds, aes(x=color, y=clarity)) +
+  geom_point()
+
+```
+
+3.1 grafico de cajas cut vrs price
+```{r}
+diamonds_cut <- diamonds 
+diamonds
+
+ggplot(diamonds_cut, aes(x=cut, y=price)) +
+  geom_boxplot() +
+  scale_y_log10()
+
+```
+
+3.2 editar color con fill
+```{r}
+
+ggplot(diamonds_cut, aes(x=cut, y=price, fill=cut)) +
+  geom_boxplot() +
+  scale_y_log10()
+
+```
+
+Faceting  variable price
+```{r}
+
+
+diamonds_price <- diamonds %>%
+  filter(cut == c("Good", "Ideal", "Premium"))
+  filter(diamonds_price > 1000) %>%
+  
+diamonds_price
+```
+
+
+4.2 filtered_price construir grafico barras  cut vrs depth
+```{r}
+
+diamonds_price <- diamonds %>%
+  filter(diamonds_cut == "cut", "depth")
+
+
+diamonds_cut <- diamonds
+diamonds_cut
+
+ggplot(diamonds_cut, aes(x=cut, y=depth)) +
+  geom_col()
+
+
+```
+
+4.3 faceting variable clarity
+```{r}
+diamonds_clarity <- diamonds
+diamonds_clarity
+
+ggplot(diamonds_clarity, aes(x=cut, y=depth, fill=clarity)) +
+  geom_col()
+
+```
+
+4.4 fill para la variable clarity
+```{r}
+diamonds_clarity <- diamonds
+diamonds_clarity
+
+ggplot(diamonds_clarity, aes(x=cut, y=depth, fill=clarity)) +
+  geom_col()
+
+```
+
+
+Grouping and summarizing
+```{r}
+
+diamonds_selected <- diamonds %>%
+  mediam_dimension_diamonds(carat, cut, clarity, depth)
+
+diamonds_median_dimension_diamonds %>%
+  group_by(cut, clarity)%>%
+  summarize(total_pop=sum(depth)) %>%
+  summarize(average_pop=mean(depth), price=median(depth))
+median_dimension_diamonds(state, number=n)
+
+
+```{r}
+
+
+```
+
