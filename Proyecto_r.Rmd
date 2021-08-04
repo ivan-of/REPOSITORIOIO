@@ -1,0 +1,114 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+CONOCIENDO LOS DATOS 1.1 - 1.3
+```{r}
+library(tidyverse)
+library(dplyr)
+
+deaths_clinic_1 <- read_csv('deaths_clinic_1.csv')
+deaths_handwashing <- read.csv('deaths_handwashing.csv')
+
+deaths_clinic_1
+deaths_handwashing
+
+yearly <- deaths_handwashing
+yearly
+
+```
+
+EL ALARMENTE NUMER DE MUERTES 
+2.1 - 2.2
+```{r}
+yearly <- deaths_handwashing %>%
+  mutate(proportion_deaths = deaths*births)
+yearly
+
+
+
+```
+
+3 MUERTE EN LAS CLINICAS
+ggplot clinica 1 y clinica 2
+```{r}
+yearly <- deaths_handwashing %>%
+  mutate(proportion_deaths = deaths*births)
+yearly
+
+ggplot(yearly, aes(x = year, y = proportion_deaths)) +
+  geom_point()
+```
+
+3.2
+```{r}
+yearly <- deaths_handwashing %>%
+  mutate(proportion_deaths = deaths*births)
+
+yearly
+
+
+ggplot(yearly, aes(x = year, y = proportion_deaths, color=clinic))+
+  geom_point()
+```
+
+LAVADO DE MANOS
+4.1, 4.2 y 4.3
+Si los datos son muy numerosos,el mostrarlos todos puede llevar un tiempo, por ello la función head() permite previsualizar los primeros 6 datos de la tabla.
+```{r}
+monthly <- deaths_clinic_1 %>%
+  mutate(proportion_deaths = deaths*births)
+monthly
+
+head(monthly)
+
+```
+
+EFECTO DEL LAVADO DE MANOS
+5.1 y 5.2
+```{r}
+monthly <- deaths_clinic_1 %>%
+  mutate(proportion_deaths = deaths*births)
+monthly
+
+ggplot(monthly, aes(x=date,y=proportion_deaths, color=proportion_deaths))+
+  geom_line()+
+  labs(monthly, x="date", y="proportion_deaths")
+
+
+```
+
+
+LOS RESULTADOS DEL LAVADO DE MANOS
+6.1
+A PARTIR DEL AÑO 1847
+```{r}
+monthly_1847 <- monthly %>%
+  mutate (handwashing_started = ifelse (date >= "1847-01-01", TRUE, FALSE))
+
+monthly_1847
+
+```
+
+a partir 1847 true
+6.2 y 6.3
+```{r}
+
+ggplot(monthly_1847, aes(x=date, y=proportion_deaths, color=handwashing_started))+ 
+  geom_line()+
+  labs(monthly_1847, x = "date", y = "proportion_deaths")
+
+```
+```{r}
+
+
+month_summary <- monthly %>%
+  group_by(handwashing_started)%>% 
+  summarize(mean_proportion_deaths=mean(proportion_deaths))
+
+month_summary
+
+```
+
