@@ -101,12 +101,17 @@ ggplot(monthly_1847, aes(x=date, y=proportion_deaths, color=handwashing_started)
   labs(monthly_1847, x = "date", y = "proportion_deaths")
 
 ```
+MAS LAVADO DE MANOS, MENOS MUERTES 
 ```{r}
+monthly_1847 <- monthly %>%
+  mutate (handwashing_started = ifelse (date >= "1847-01-01", TRUE, FALSE))
+
+monthly_1847
 
 
-month_summary <- monthly %>%
+month_summary <- monthly_1847 %>%
   group_by(handwashing_started)%>% 
-  summarize(mean_proportion_deaths=mean(proportion_deaths))
+  summarize(mean_proportion_deaths = mean(proportion_deaths))
 
 month_summary
 
